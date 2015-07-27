@@ -21,16 +21,26 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('transformJsx', function() {
-    gulp.src('src/demo1/*.jsx')
+    gulp.src('src/**/*.jsx')
         .pipe(react())
-        .pipe(gulp.dest('src/demo1/'));
+        .pipe(gulp.dest('build/'));
 });
 
-gulp.task('browser-sync', function () {
+gulp.task('moveHtml', function(){
+    gulp.src('src/**/*.html')
+        .pipe(gulp.dest('build/'));
+});
+gulp.task('moveCss', function(){
+    gulp.src('src/**/*.css')
+        .pipe(gulp.dest('build/'));
+});
+
+
+gulp.task('browserSync', function () {
     var files = [
-        'src/**/*.html',
-        'src/**/*.css',
-        'src/**/*.js'
+        'build/**/*.html',
+        'build/**/*.css',
+        'build/**/*.js'
     ];
 
     // Serve files from the root of this project
@@ -38,15 +48,21 @@ gulp.task('browser-sync', function () {
         open: true,
         port: 8964,
         server: {
-            baseDir: "./src"
+            baseDir: "./build"
         }
     });
-
     //gulp.watch("**/*.html").on("change", browserSync.reload);
     //gulp.watch("**/*.css").on("change", browserSync.reload);
-
 });
 
-gulp.task('default',['browser-sync']);
+gulp.task('watch', function () {
+    gulp.watch('src/**/*.jsx', ['transformJsx']);
+    gulp.watch('src/**/*.html', ['moveHtml']);
+    gulp.watch('src/**/*.css', ['moveCss']);
+});
+
+gulp.task('develop', ['transformJsx', 'moveHtml', 'moveCss', 'watch', 'browserSync']);
+
+gulp.task('default',['browserSync']);
 
 //gulp.task('default',['webserver']);
