@@ -1,17 +1,11 @@
 /**
  * User: Anderlu
- * Date: 15/7/16
- * Time: 下午3:21
+ * Date: 15/9/1
+ * Time: 下午3:56
  */
+var React = require('react');
+var TodoList = require('../TodoList');
 
-var TodoList = React.createClass({
-    render: function() {
-        var createItem = function(itemText) {
-            return <li>{itemText}</li>;
-        };
-        return <ul>{this.props.items.map(createItem)}</ul>;
-    }
-});
 var TodoApp = React.createClass({
     getInitialState: function() {
         return {items: [], text: ''};
