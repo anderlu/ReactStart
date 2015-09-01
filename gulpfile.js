@@ -34,7 +34,10 @@ gulp.task('moveCss', function(){
     gulp.src('src/**/*.css')
         .pipe(gulp.dest('build/'));
 });
-
+gulp.task('moveJsLib', function(){
+    gulp.src('src/lib/react.js')
+        .pipe(gulp.dest('build/lib/'));
+});
 
 gulp.task('browserSync', function () {
     var files = [
@@ -61,7 +64,8 @@ gulp.task('watch', function () {
     gulp.watch('src/**/*.css', ['moveCss']);
 });
 
-gulp.task('develop', ['transformJsx', 'moveHtml', 'moveCss', 'watch', 'browserSync']);
+
+gulp.task('develop', ['transformJsx', 'moveHtml', 'moveCss', 'moveJsLib', 'watch', 'browserSync']);
 
 gulp.task('default',['browserSync']);
 
