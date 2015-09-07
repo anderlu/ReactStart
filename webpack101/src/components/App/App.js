@@ -15,9 +15,11 @@ var TodoApp = React.createClass({
     },
     handleSubmit: function(e) {
         e.preventDefault();
-        var nextItems = this.state.items.concat([this.state.text]);
-        var nextText = '';
-        this.setState({items: nextItems, text: nextText});
+        if(this.state.text){
+            var nextItems = this.state.items.concat([this.state.text]);
+            var nextText = '';
+            this.setState({items: nextItems, text: nextText});
+        }
     },
     render: function() {
         return (

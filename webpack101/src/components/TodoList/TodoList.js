@@ -17,11 +17,15 @@ var TodoList = React.createClass({
 module.exports = TodoList;*/
 
 import React from 'react';
+import TodoItem from '../TodoItem';
 
 export default class TodoList extends React.Component{
+
     render(){
+
         let createItem = (itemText) => {
-            return <li key={itemText}>{itemText}</li>;
+            let _id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+            return <TodoItem key={_id} text={itemText}/>;
         };
         return (
             <ul>{this.props.items.map(createItem)}</ul>
