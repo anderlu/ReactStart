@@ -29,7 +29,7 @@ export default class TodoList extends React.Component{
         };
         return (
             <div>
-                <h3>To do List!!!</h3>
+                <h3>To do List!!</h3>
                 <ul>{this.props.items.map(createItem)}</ul>
             </div>
         );

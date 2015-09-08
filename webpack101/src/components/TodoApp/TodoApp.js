@@ -7,7 +7,7 @@
 var React = require('react');
 var TodoList = require('../TodoList');
 */
-import React, { PropTypes } from 'react';
+/*import React, { PropTypes } from 'react';
 import TodoList from '../TodoList';
 
 var TodoApp = React.createClass({
@@ -28,7 +28,7 @@ var TodoApp = React.createClass({
     render: function() {
         return (
             <div>
-                <h3>TODO!</h3>
+                <h3>TODO!!</h3>
                 <TodoList items={this.state.items} />
                 <form onSubmit={this.handleSubmit}>
                     <input onChange={this.onChange} value={this.state.text} />
@@ -38,8 +38,9 @@ var TodoApp = React.createClass({
         );
     }
 });
+export default TodoApp;*/
 
-/*
+
 import React, { PropTypes } from 'react';
 import TodoList from '../TodoList';
 
@@ -57,11 +58,11 @@ class TodoApp extends React.Component{
 
     }
 
-    /!*getInitialState() {
+    /*getInitialState() {
         return {items: [], text: ''};
-    }*!/
+    }*/
 
-    /!*onChange(e) {
+    /*onChange(e) {
         this.setState({text: e.target.value});
     }
     handleSubmit (e) {
@@ -72,7 +73,7 @@ class TodoApp extends React.Component{
             var nextText = '';
             this.setState({items: nextItems, text: nextText});
         }
-    }*!/
+    }*/
 
     onChange = (e) => {
         this.setState({text: e.target.value});
@@ -102,6 +103,6 @@ class TodoApp extends React.Component{
     }
 }
 
-export default TodoApp;*/
+export default TodoApp;
 
 React.render(<TodoApp />, document.body);
