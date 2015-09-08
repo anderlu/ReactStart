@@ -28,7 +28,10 @@ export default class TodoList extends React.Component{
             return <TodoItem key={_id} text={itemText}/>;
         };
         return (
-            <ul>{this.props.items.map(createItem)}</ul>
+            <div>
+                <h3>To do List!!!</h3>
+                <ul>{this.props.items.map(createItem)}</ul>
+            </div>
         );
     }
 
