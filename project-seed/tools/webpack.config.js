@@ -6,6 +6,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import bourbon from 'bourbon.includePaths';
+import merge from 'lodash.merge';
 
 //var bourbon = require("bourbon").includePaths;
 
@@ -18,9 +19,12 @@ const AUTOPREFIXER_BROWSERS = [
     'Explorer >= 9',
     'iOS >= 7',
     'Opera >= 12',
-    'Safari >= 7.1',
+    'Safari >= 7.1'
 ];
-
+const GLOBALS = {
+    'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+    __DEV__: DEBUG,
+};
 /*
 *
 * Common configuration
@@ -28,7 +32,7 @@ const AUTOPREFIXER_BROWSERS = [
 * */
 const config = {
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurenceOrderPlugin()
     ],
 
     resolve: {
@@ -59,7 +63,29 @@ const config = {
 * Configuration for the client-side bundle
 * */
 
-
+const appConfig = merge({}, config ,{
+    entry: [
+        ...(WATCH ? ['webpack-hot-middleware/client'] : []),
+        './src/app/app.js',
+    ],
+    output: {
+        path: path.join(__dirname, '../build/public'),
+        filename: 'app.js',
+    },
+    devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
+    plugins: [
+        ...config.plugins,
+        ...(WATCH ? [
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoErrorsPlugin(),
+        ] : [])
+    ],
+    module: {
+        loaders: [
+            ...config.module.loaders
+        ]
+    }
+});
 
 
 /*
@@ -70,3 +96,5 @@ const config = {
  }
 *
 * */
+
+export default appConfig;
