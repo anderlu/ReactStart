@@ -5,11 +5,11 @@
  */
 import path from 'path';
 import webpack from 'webpack';
-import bourbon from 'bourbon.includePaths';
-import merge from 'lodash.merge';
+import _ from 'lodash';
 
-//var bourbon = require("bourbon").includePaths;
+var bourbonPaths = require("bourbon").includePaths;
 
+const DEBUG = !process.argv.includes('--release');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
 const AUTOPREFIXER_BROWSERS = [
     'Android 2.3',
@@ -23,7 +23,7 @@ const AUTOPREFIXER_BROWSERS = [
 ];
 const GLOBALS = {
     'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-    __DEV__: DEBUG,
+    __DEV__: DEBUG
 };
 /*
 *
@@ -31,6 +31,9 @@ const GLOBALS = {
 *
 * */
 const config = {
+    stats: {
+
+    },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin()
     ],
@@ -43,17 +46,19 @@ const config = {
         loaders: [
             {
                 test: /\.scss$/,
-                loader: "style!css!sass?includePaths[]=" + bourbon
+                loader: "style!css!sass?includePaths[]=" + bourbonPaths,
+                include: [path.join(__dirname, '../src/app')]
+
             },
             {
                 test: /\.js$/,
                 loader: 'react-hot!babel?stage=0',
-                include: [path.join(__dirname, 'src')]
+                include: [path.join(__dirname, '../src/app')]
             },
             {
                 test: /\.jsx$/,
                 loader: 'react-hot!jsx?harmony',
-                include: [path.join(__dirname, 'src')]
+                include: [path.join(__dirname, '../src/app')]
             }
         ]
     }
@@ -63,21 +68,22 @@ const config = {
 * Configuration for the client-side bundle
 * */
 
-const appConfig = merge({}, config ,{
+const appConfig = _.merge({}, config ,{
     entry: [
         ...(WATCH ? ['webpack-hot-middleware/client'] : []),
-        './src/app/app.js',
+        './src/app/App.js'
     ],
     output: {
-        path: path.join(__dirname, '../build/public'),
+        path: path.join(__dirname, '../build/app/asset/js'),
         filename: 'app.js',
+        publicPath: "/build/"
     },
     devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
     plugins: [
         ...config.plugins,
         ...(WATCH ? [
             new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoErrorsPlugin(),
+            new webpack.NoErrorsPlugin()
         ] : [])
     ],
     module: {

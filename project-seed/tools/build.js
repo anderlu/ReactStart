@@ -3,36 +3,17 @@
  * Date: 15/10/27
  * Time: 下午7:14
  */
-import webpack from 'webpack';
-import webpackConfig from './webpack.config';
+
+import run from './run';
 
 /**
- * Bundles JavaScript, CSS and images into one or more packages
- * ready to be used in a browser.
+ * Compiles the project from source files into a distributable
+ * format and copies it to the output (build) folder.
  */
-function bundle() {
-    return new Promise((resolve, reject) => {
-        const bundler = webpack(webpackConfig);
-        let bundlerRunCount = 0;
-
-        function onComplete(err, stats) {
-            if (err) {
-                return reject(err);
-            }
-
-            console.log(stats.toString(webpackConfig.stats));
-
-            if (++bundlerRunCount === (global.WATCH ? webpackConfig.length : 1)) {
-                return resolve();
-            }
-        }
-
-        if (global.WATCH) {
-            bundler.watch(200, onComplete);
-        } else {
-            bundler.run(onComplete);
-        }
-    });
+async function build() {
+    await run(require('./clean'));
+    await run(require('./copy'));
+    //await run(require('./bundle'));
 }
 
-export default bundle;
+export default build;
