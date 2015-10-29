@@ -2,7 +2,7 @@
 
 
 ##目标1
-1. webpack + browser-sync
+1. webpack + browser-sync ，使用browser-sync 做开发server 
 2. React 组件热加载
 3. css 注入更新
 4. i18n 多语言支持

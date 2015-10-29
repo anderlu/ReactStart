@@ -32,10 +32,11 @@ const GLOBALS = {
 * */
 const config = {
     stats: {
-
+        colors: true
     },
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.NoErrorsPlugin()
     ],
 
     resolve: {
@@ -76,7 +77,7 @@ const appConfig = _.merge({}, config ,{
     output: {
         path: path.join(__dirname, '../build/app/asset/js'),
         filename: 'app.js',
-        publicPath: "/build/"
+        publicPath: "/build/app/asset/js"
     },
     devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
     plugins: [

@@ -17,7 +17,7 @@ export default class Header extends Component{
                         <span className="Header-brandTxt">Your Company</span>
                     </a>
                     <div className="Header-banner">
-                        <h1 className="Header-bannerTitle">Demo</h1>
+                        <h1 className="Header-bannerTitle">Demos</h1>
                         <p className="Header-bannerDesc">Complex web apps made easy</p>
                     </div>
                 </div>
